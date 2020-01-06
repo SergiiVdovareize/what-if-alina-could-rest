@@ -1,0 +1,8 @@
+{
+  "name": "what-if-alina-could-rest",
+  "description": "test rest",
+  "version": "0.0.1",
+  "engines": {
+    "node": "13.5.0"
+  }
+}

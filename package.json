@@ -4,5 +4,11 @@
   "version": "0.0.1",
   "engines": {
     "node": "13.5.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-static": "^0.7.11"
   }
 }

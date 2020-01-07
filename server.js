@@ -31,6 +31,9 @@ app.get('/', (req, res) => {
     res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
 });
 
+require('./app/routes/auth.routes.js')(app)
+require('./app/routes/task.routes.js')(app)
+
 // listen for requests
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

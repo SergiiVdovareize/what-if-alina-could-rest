@@ -22,8 +22,10 @@ mongoose.connect(process.env.MONGODB_URI || dbConfig.url, {
     process.exit()
 })
 
+app.use(express.static('docs'))
 app.get('/', (req, res) => {
-    res.json({"message": "Hello. Is it me you're looking for?"})
+    // res.json({"message": "Hello. Is it me you're looking for?"})
+    res.render('./docs/index.html')
 })
 
 require('./app/routes/auth.routes.js')(app)

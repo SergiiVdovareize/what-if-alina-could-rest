@@ -3,6 +3,17 @@ const jwt = require("jsonwebtoken")
 const User = require('../models/user.model.js')
 const { secret } = require('../../config/app.config.js')
 
+/**
+ * @api {post} /signup New user registration
+ * @apiGroup Auth
+ * @apiName Signup
+ * @apiVersion 0.1.0
+ * 
+ * @apiParam {String} [fname] User's first name
+ * @apiParam {String} [lname] User's last name
+ * @apiParam {String} email User's email
+ * @apiParam {String} password User's password
+ */
 exports.signup = ({body}, res) => {
     if(!body.email || !body.password) {
         return res.status(400).send({
@@ -38,6 +49,16 @@ exports.signup = ({body}, res) => {
         }
     })
 }
+
+/**
+ * @api {get} /signin Log in
+ * @apiGroup Auth
+ * @apiName Signin
+ * @apiVersion 0.1.0
+ * 
+ * @apiParam {String} email User's email
+ * @apiParam {String} password User's password
+ */
 
 exports.signin = ({ body: { email, password } }, res) => {
     let getUser

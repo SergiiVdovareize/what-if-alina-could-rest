@@ -1,13 +1,18 @@
 {
   "name": "what-if-alina-could-rest",
-  "description": "test rest",
-  "version": "0.0.2",
+  "description": "Demo rest API with JWT",
+  "version": "0.1.0",
   "main": "server.js",
   "engines": {
     "node": "13.5.0"
   },
+  "apidoc": {
+    "title": "JWT rest API",
+    "url" : "https://immense-lowlands-98054.herokuapp.com"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "docs": "apidoc -i app/controllers/ -o docs/"
   },
   "dependencies": {
     "apidoc": "^0.19.1",

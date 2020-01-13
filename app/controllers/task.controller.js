@@ -2,7 +2,7 @@ const Task = require('../models/task.model.js')
 const User = require('../models/user.model.js')
 
 exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
-    const sortFiels = sort || 'title'
+    const sortField = sort || 'title'
     limit = parseInt(limit, 10)
     page = parseInt(page, 10)
     if (page < 1) {
@@ -15,7 +15,7 @@ exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
     }
 
     Task.find(query)
-        .sort({[sortFiels]: asc === 'desc' ? -1 : 1})
+        .sort({[sortField]: asc === 'desc' ? -1 : 1})
         .limit(limit, 10)
         .skip((page - 1) * limit)
         .then(tasks => {

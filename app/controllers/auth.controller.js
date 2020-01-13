@@ -59,7 +59,6 @@ exports.signup = ({body}, res) => {
  * @apiParam {String} email User's email
  * @apiParam {String} password User's password
  */
-
 exports.signin = ({ body: { email, password } }, res) => {
     let getUser
     User.findOne({

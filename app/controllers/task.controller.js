@@ -1,6 +1,17 @@
 const Task = require('../models/task.model.js')
 const User = require('../models/user.model.js')
 
+/**
+ * @api {get} /tasks Get task list
+ * @apiGroup Tasks
+ * @apiName Task list
+ * @apiVersion 0.1.0
+ * 
+ * @apiParam {String} [sort] Field to sort by
+ * @apiParam {String} [asc] Sorting direction
+ * @apiParam {Number} [limit] Items per page
+ * @apiParam {Number} [page] Page number
+ */
 exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
     const sortField = sort || 'title'
     limit = parseInt(limit, 10)
@@ -27,6 +38,18 @@ exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
         })
 }
 
+/**
+ * @api {post} /tasks Create new task
+ * @apiGroup Tasks
+ * @apiName New task
+ * @apiVersion 0.1.0
+ * @apiPermission authorized user
+ * 
+ * @apiParam {String} title Task title
+ * @apiParam {String} [description] Task description
+ * @apiParam {Date} [dueDate] Task due date
+ * @apiParam {String} [proiroty] Task prority (low, normal, high)
+ */
 exports.create = ({ body }, res) => {
     if (!body.title || !body.author) {
         return res.status(400).send({
@@ -69,6 +92,19 @@ exports.create = ({ body }, res) => {
         })
 }
 
+/**
+ * @api {put} /tasks/:id Update existing task
+ * @apiGroup Tasks
+ * @apiName Update task
+ * @apiVersion 0.1.0
+ * @apiPermission authorized user
+ * 
+ * @apiParam {ObjectId} id Task ID
+ * @apiParam {String} title Task title
+ * @apiParam {String} [description] Task description
+ * @apiParam {Date} [dueDate] Task due date
+ * @apiParam {String} [proiroty] Task prority (low, normal, high)
+ */
 exports.update = ({ body, params: { id } }, res) => {
     Task.findByIdAndUpdate(id, {
             title: body.title,
@@ -94,6 +130,15 @@ exports.update = ({ body, params: { id } }, res) => {
         })
 }
 
+/**
+ * @api {delete} /tasks/:id Delete existing task
+ * @apiGroup Tasks
+ * @apiName Detele task
+ * @apiVersion 0.1.0
+ * @apiPermission authorized user
+ * 
+ * @apiParam {ObjectId} id Task ID
+ */
 exports.delete = ({ params: { id } }, res) => {
     Task.findByIdAndRemove(id)
         .then(task => {

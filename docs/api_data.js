@@ -140,10 +140,15 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "low",
+              "normal",
+              "high"
+            ],
             "optional": true,
             "field": "proiroty",
             "defaultValue": "normal",
-            "description": "<p>Task prority (low, normal, high)</p>"
+            "description": "<p>Task prority</p>"
           }
         ]
       }
@@ -164,17 +169,27 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "title",
+              "description",
+              "dueDate",
+              "priority"
+            ],
             "optional": true,
             "field": "sort",
-            "description": "<p>Field to sort by (title, description, dueDate, priority)</p>"
+            "description": "<p>Field to sort by</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "asc",
+              "desc"
+            ],
             "optional": true,
             "field": "asc",
             "defaultValue": "asc",
-            "description": "<p>Sorting direction (asc, desc)</p>"
+            "description": "<p>Sorting direction</p>"
           },
           {
             "group": "Parameter",
@@ -253,7 +268,7 @@ define({ "api": [
             "type": "String",
             "optional": true,
             "field": "proiroty",
-            "description": "<p>Task prority (low, normal, high)</p>"
+            "description": "<p>Task prority</p>"
           }
         ]
       }

@@ -7,8 +7,8 @@ const User = require('../models/user.model.js')
  * @apiName Task list
  * @apiVersion 0.1.0
  * 
- * @apiParam {String} [sort] Field to sort by (title, description, dueDate, priority)
- * @apiParam {String} [asc=asc] Sorting direction (asc, desc)
+ * @apiParam {String=title,description,dueDate,priority} [sort] Field to sort by
+ * @apiParam {String=asc,desc} [asc=asc] Sorting direction
  * @apiParam {Number} [limit=10] Items per page
  * @apiParam {Number} [page=1] Page number
  * @apiParam {ObjectId} [author] Author's id to filter by
@@ -49,7 +49,7 @@ exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
  * @apiParam {String} title Task title
  * @apiParam {String} [description] Task description
  * @apiParam {Date} [dueDate] Task due date
- * @apiParam {String} [proiroty=normal] Task prority (low, normal, high)
+ * @apiParam {String=low,normal,high} [proiroty=normal] Task prority
  */
 exports.create = ({ body }, res) => {
     if (!body.title || !body.author) {
@@ -104,7 +104,7 @@ exports.create = ({ body }, res) => {
  * @apiParam {String} title Task title
  * @apiParam {String} [description] Task description
  * @apiParam {Date} [dueDate] Task due date
- * @apiParam {String} [proiroty] Task prority (low, normal, high)
+ * @apiParam {String} [proiroty] Task prority
  */
 exports.update = ({ body, params: { id } }, res) => {
     Task.findByIdAndUpdate(id, {

@@ -8,7 +8,7 @@
   },
   "apidoc": {
     "title": "JWT rest API",
-    "url" : "https://immense-lowlands-98054.herokuapp.com"
+    "url": "https://immense-lowlands-98054.herokuapp.com"
   },
   "scripts": {
     "start": "node server.js",

@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 5000
 const app = express()
 
 app.use(urlencoded({ extended: true }))
-
+app.use(express.static('docs'))
 app.use(json())
 
 const dbConfig = require('./config/database.config.js')
@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGODB_URI || dbConfig.url, {
     process.exit()
 })
 
-app.use(express.static('docs'))
+
 app.get('/', (req, res) => {
     // res.json({"message": "Hello. Is it me you're looking for?"})
     res.render('./docs/index.html')

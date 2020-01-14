@@ -7,10 +7,11 @@ const User = require('../models/user.model.js')
  * @apiName Task list
  * @apiVersion 0.1.0
  * 
- * @apiParam {String} [sort] Field to sort by
- * @apiParam {String} [asc] Sorting direction
- * @apiParam {Number} [limit] Items per page
- * @apiParam {Number} [page] Page number
+ * @apiParam {String} [sort] Field to sort by (title, description, dueDate, priority)
+ * @apiParam {String} [asc=asc] Sorting direction (asc, desc)
+ * @apiParam {Number} [limit=10] Items per page
+ * @apiParam {Number} [page=1] Page number
+ * @apiParam {ObjectId} [author] Author's id to filter by
  */
 exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
     const sortField = sort || 'title'
@@ -48,7 +49,7 @@ exports.index = ({query: {sort, asc, limit = 10, page = 1, author}}, res) => {
  * @apiParam {String} title Task title
  * @apiParam {String} [description] Task description
  * @apiParam {Date} [dueDate] Task due date
- * @apiParam {String} [proiroty] Task prority (low, normal, high)
+ * @apiParam {String} [proiroty=normal] Task prority (low, normal, high)
  */
 exports.create = ({ body }, res) => {
     if (!body.title || !body.author) {

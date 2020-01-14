@@ -142,6 +142,7 @@
             "type": "String",
             "optional": true,
             "field": "proiroty",
+            "defaultValue": "normal",
             "description": "<p>Task prority (low, normal, high)</p>"
           }
         ]
@@ -165,20 +166,22 @@
             "type": "String",
             "optional": true,
             "field": "sort",
-            "description": "<p>Field to sort by</p>"
+            "description": "<p>Field to sort by (title, description, dueDate, priority)</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": true,
             "field": "asc",
-            "description": "<p>Sorting direction</p>"
+            "defaultValue": "asc",
+            "description": "<p>Sorting direction (asc, desc)</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
             "optional": true,
             "field": "limit",
+            "defaultValue": "10",
             "description": "<p>Items per page</p>"
           },
           {
@@ -186,7 +189,15 @@
             "type": "Number",
             "optional": true,
             "field": "page",
+            "defaultValue": "1",
             "description": "<p>Page number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": true,
+            "field": "author",
+            "description": "<p>Author's id to filter by</p>"
           }
         ]
       }

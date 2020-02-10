@@ -1,4 +1,4 @@
-require('dotenv').config({ silent: process.env.NODE_ENV === 'production' })
+require('dotenv').config
 const express = require('express')
 const { urlencoded, json } = require('body-parser')
 

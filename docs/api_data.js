@@ -140,9 +140,15 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "low",
+              "normal",
+              "high"
+            ],
             "optional": true,
             "field": "proiroty",
-            "description": "<p>Task prority (low, normal, high)</p>"
+            "defaultValue": "normal",
+            "description": "<p>Task prority</p>"
           }
         ]
       }
@@ -163,6 +169,12 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "title",
+              "description",
+              "dueDate",
+              "priority"
+            ],
             "optional": true,
             "field": "sort",
             "description": "<p>Field to sort by</p>"
@@ -170,8 +182,13 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "asc",
+              "desc"
+            ],
             "optional": true,
             "field": "asc",
+            "defaultValue": "asc",
             "description": "<p>Sorting direction</p>"
           },
           {
@@ -179,6 +196,7 @@ define({ "api": [
             "type": "Number",
             "optional": true,
             "field": "limit",
+            "defaultValue": "10",
             "description": "<p>Items per page</p>"
           },
           {
@@ -186,7 +204,15 @@ define({ "api": [
             "type": "Number",
             "optional": true,
             "field": "page",
+            "defaultValue": "1",
             "description": "<p>Page number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": true,
+            "field": "author",
+            "description": "<p>Author's id to filter by</p>"
           }
         ]
       }
@@ -242,7 +268,7 @@ define({ "api": [
             "type": "String",
             "optional": true,
             "field": "proiroty",
-            "description": "<p>Task prority (low, normal, high)</p>"
+            "description": "<p>Task prority</p>"
           }
         ]
       }

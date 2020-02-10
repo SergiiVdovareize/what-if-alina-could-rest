@@ -5,6 +5,7 @@ const { urlencoded, json } = require('body-parser')
 const app = express()
 app.use(urlencoded({ extended: true }))
 app.use(json())
+app.use(express.static('docs'))
 
 const mongoose = require('mongoose')
 
@@ -13,7 +14,7 @@ const mongoConnection = mongoose.connection
 mongoConnection.on('error', error => console.log(error))
 mongoConnection.once('open', () => console.log('connected to the database'))
 
-app.use(express.static('docs'))
+
 app.get('/', (req, res) => {
     res.render('./docs/index.html')
 })

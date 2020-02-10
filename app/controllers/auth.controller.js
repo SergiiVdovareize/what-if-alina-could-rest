@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const User = require('../models/user.model.js')
-const { secret } = require('../../config/app.config.js') // yes, secret must be an ENV variable instead of config file
 
 /**
  * @api {post} /signup New user registration
@@ -80,7 +79,7 @@ exports.signin = ({ body: { email, password } }, res) => {
         let jwtToken = jwt.sign({
             email: getUser.email,
             userId: getUser._id
-        }, secret, {
+        }, process.env.AUTH_SECRET, {
             expiresIn: "10m"
         })
         res.status(200).json({

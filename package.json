@@ -8,10 +8,11 @@
   },
   "apidoc": {
     "title": "JWT rest API",
-    "url" : "https://immense-lowlands-98054.herokuapp.com"
+    "url": "https://immense-lowlands-98054.herokuapp.com"
   },
   "scripts": {
     "start": "node server.js",
+    "start:dev": "nodemon server.js",
     "docs": "apidoc -i app/controllers/ -o docs/"
   },
   "dependencies": {
@@ -22,6 +23,8 @@
     "mongoose": "^5.8.5"
   },
   "devDependencies": {
-    "apidoc": "^0.19.1"
+    "apidoc": "^0.19.1",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
   }
 }

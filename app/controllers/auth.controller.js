@@ -13,40 +13,34 @@ const User = require('../models/user.model.js')
  * @apiParam {String} email User's email
  * @apiParam {String} password User's password
  */
-exports.signup = ({body}, res) => {
+exports.signup = async ({ body }, res) => {
     if(!body.email || !body.password) {
         return res.status(400).send({
             message: "Check the data"
         })
     }
 
-    User.findOne({
-        email: body.email
-    }).then(user => {
+    try {
+        let user = await User.findOne({ email: body.email })
         if (user) {
-            res.status(500).send({
-                message: "User with such email already exists"
-            }) 
-        } else {
-            bcrypt.hash(body.password, 10).then((hash) => {
-                const user = new User({
-                    firstName: body.fname,
-                    lastName: body.lname,
-                    email: body.email,
-                    password: hash
-                });
-        
-                user.save()
-                    .then(data => {
-                        res.send(data)
-                    }).catch(err => {
-                        res.status(500).send({
-                            message: err.message || "Some error occurred while creating the User"
-                        })
-                    })
-            })
+            return res.status(409).send({ message: "User with such email already exists" })
         }
-    })
+
+        user = new User({
+            firstName: body.fname,
+            lastName: body.lname,
+            email: body.email,
+            password: await bcrypt.hash(body.password, 10)
+        });
+    
+        const newUser = await user.save()
+        res.status(200).json({
+            token: generateToken(newUser),
+            expiresIn: process.env.TOKEN_EXPIRATION
+        })
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
 }
 
 /**
@@ -58,37 +52,29 @@ exports.signup = ({body}, res) => {
  * @apiParam {String} email User's email
  * @apiParam {String} password User's password
  */
-exports.signin = ({ body: { email, password } }, res) => {
-    let getUser
-    User.findOne({
-        email
-    }).then(user => {
+exports.signin = async ({ body: { email, password } }, res) => {
+    try {
+        let user = await User.findOne({ email })
         if (!user) {
-            return res.status(401).json({
-                message: "Authentication failed"
-            })
+            return res.status(400).send({ message: `User not found` })            
         }
-        getUser = user
-        return bcrypt.compare(password, user.password)
-    }).then(response => {
-        if (!response) {
-            return res.status(401).json({
-                message: "Authentication failed"
-            })
+
+        const authCheck = await bcrypt.compare(password, user.password)
+        if (!authCheck) {
+            return res.status(401).json({ message: "Authentication failed" })
         }
-        let jwtToken = jwt.sign({
-            email: getUser.email,
-            userId: getUser._id
-        }, process.env.AUTH_SECRET, {
-            expiresIn: "10m"
-        })
+
         res.status(200).json({
-            token: jwtToken,
-            expiresIn: 10 * 60,
+            token: generateToken(user),
+            expiresIn: process.env.TOKEN_EXPIRATION
         })
-    }).catch(err => {
-        return res.status(401).json({
-            message: "Authentication failed"
-        })
-    })
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+}
+
+const generateToken = ({ _id: id, email }) => {
+    return jwt.sign({ id, email }, 
+        process.env.AUTH_SECRET, 
+        { expiresIn: process.env.TOKEN_EXPIRATION })
 }

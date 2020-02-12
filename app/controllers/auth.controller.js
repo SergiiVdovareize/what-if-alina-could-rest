@@ -66,7 +66,7 @@ exports.signin = async ({ body: { email, password } }, res) => {
 
         res.status(200).json({
             token: generateToken(user),
-            expiresIn: process.env.TOKEN_EXPIRATION
+            expiresIn: parseInt(process.env.TOKEN_EXPIRATION, 10)
         })
     } catch (err) {
         res.status(400).json({ message: err.message })
@@ -74,7 +74,7 @@ exports.signin = async ({ body: { email, password } }, res) => {
 }
 
 const generateToken = ({ _id: id, email }) => {
-    return jwt.sign({ id, email }, 
+    return jwt.sign({ email, id }, 
         process.env.AUTH_SECRET, 
-        { expiresIn: process.env.TOKEN_EXPIRATION })
+        { expiresIn: parseInt(process.env.TOKEN_EXPIRATION, 10) })
 }

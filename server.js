@@ -15,7 +15,6 @@ const mongoConnection = mongoose.connection
 mongoConnection.on('error', error => console.log(error))
 mongoConnection.once('open', () => console.log('connected to the database'))
 
-
 app.get('/', (req, res) => {
     res.render('./docs/index.html')
 })

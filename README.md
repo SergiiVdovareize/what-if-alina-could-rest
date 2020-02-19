@@ -1,3 +1,3 @@
 # what-if-alina-could-rest
 ### Demo rest API server with JWT authentication
-See the documentation here: https://immense-lowlands-98054.herokuapp.com/
+See the documentation here: https://what-if-alina-could-rest.herokuapp.com/
